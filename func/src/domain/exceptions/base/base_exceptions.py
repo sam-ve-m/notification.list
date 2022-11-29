@@ -1,4 +1,4 @@
-# Jormungandr - Suitability
+# Jormungandr - Notifications
 from ...enums.response.code import InternalCode
 
 

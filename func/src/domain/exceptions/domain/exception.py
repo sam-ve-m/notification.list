@@ -1,4 +1,4 @@
-# Jormungandr - Onboarding
+# Jormungandr - Notifications
 from ..base.base_exceptions import DomainException
 from ...enums.response.code import InternalCode
 

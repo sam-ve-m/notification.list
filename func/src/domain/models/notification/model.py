@@ -18,7 +18,7 @@ class Notification:
         self.seen_at = notification.get("seen_at")
         self.listed = True
         self.listed_at = datetime_now
-        self.notification_id = notification.get("notification_id")
+        self.id = notification.get("_id")
         self.validate_notifications = self.check_if_no_empty_fields()
 
     def check_if_no_empty_fields(self):
@@ -27,7 +27,7 @@ class Notification:
                 self.title,
                 self.description,
                 self.unique_id,
-                self.notification_id,
+                self.id,
                 self.sent_at,
             ]
         ):
@@ -42,20 +42,22 @@ class NotificationsModel:
             for notification in notifications
         ]
 
-    def get_notifications_template(self) -> List[dict]:
+    def get_notifications_template(self) -> dict:
 
-        notifications_template = [
-            {
-                "title": notification.title,
-                "description": notification.description,
-                "details": notification.details,
-                "sent_at": notification.sent_at,
-                "seen": notification.seen,
-                "seen_at": notification.seen_at,
-                "listed": notification.listed,
-                "listed_at": notification.listed_at,
-                "notification_id": notification.notification_id,
-            }
-            for notification in self.notifications
-        ]
+        notifications_template = {
+            "notifications": [
+                {
+                    "title": notification.title,
+                    "description": notification.description,
+                    "sent_at": notification.sent_at,
+                    "seen": notification.seen,
+                    "seen_at": notification.seen_at,
+                    "listed": notification.listed,
+                    "listed_at": notification.listed_at,
+                    "id": notification.id,
+                }
+                for notification in self.notifications
+            ]
+        }
         return notifications_template
+

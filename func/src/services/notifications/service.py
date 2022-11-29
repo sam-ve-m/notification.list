@@ -1,22 +1,18 @@
-# Jormungandr - Notification
+# Jormungandr - Notifications
 from ...repositories.mongo_db.notification.repository import NotificationRepository
 from ...domain.models.notification.model import NotificationsModel
 from ...domain.exceptions.repositories.exception import ErrorOnUpdateUserNotifications
 
 
-# Standards
-from typing import List, Union
-
-
 class NotificationService:
     @classmethod
-    async def get_all(cls, unique_id: str) -> List[Union[dict, None]]:
+    async def get_all(cls, unique_id: str) -> dict:
         notifications = await NotificationRepository.get_all_user_notifications(
             unique_id=unique_id
         )
 
         if not notifications:
-            return notifications
+            return {"notifications": notifications}
 
         notifications_model = NotificationsModel(notifications=notifications)
         notifications_response = notifications_model.get_notifications_template()
