@@ -1,0 +1,55 @@
+include:
+- ./func/*
+kind: ArchiveUploadSpec
+name: func-5BTv
+
+---
+apiVersion: fission.io/v1
+kind: Package
+metadata:
+  creationTimestamp: null
+  name: notification-list-fn-bd5ae42d-8fad-4963-ab8c-7b2e01224cbf
+  namespace: default
+spec:
+  deployment:
+    checksum: {}
+  environment:
+    name: notification-list-env
+    namespace: default
+  source:
+    checksum: {}
+    type: url
+    url: archive://func-5BTv
+status:
+  buildstatus: pending
+  lastUpdateTimestamp: "2022-11-29T20:26:53Z"
+
+---
+apiVersion: fission.io/v1
+kind: Function
+metadata:
+  creationTimestamp: null
+  name: notification-list-fn
+  namespace: default
+spec:
+  InvokeStrategy:
+    ExecutionStrategy:
+      ExecutorType: newdeploy
+      MaxScale: 1
+      MinScale: 1
+      SpecializationTimeout: 120
+      TargetCPUPercent: 80
+    StrategyType: execution
+  concurrency: 500
+  environment:
+    name: notification-list-env
+    namespace: default
+  functionTimeout: 60
+  idletimeout: 120
+  package:
+    functionName: main.get_all_notifications
+    packageref:
+      name: notification-list-fn-bd5ae42d-8fad-4963-ab8c-7b2e01224cbf
+      namespace: default
+  requestsPerPod: 10000
+  resources: {}
