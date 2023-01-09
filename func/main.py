@@ -1,9 +1,9 @@
 # Jormungandr - Notifications
-from src.domain.response.model import ResponseModel
-from src.domain.enums.response.code import InternalCode
-from src.services.jwt.service import JwtService
-from src.services.notifications.service import NotificationService
-from src.domain.exceptions.base.base_exceptions import (
+from func.src.domain.response.model import ResponseModel
+from func.src.domain.enums.response.code import InternalCode
+from func.src.services.jwt.service import JwtService
+from func.src.services.notifications.service import NotificationService
+from func.src.domain.exceptions.base.base_exceptions import (
     ServiceException,
     DomainException,
     RepositoryException,
