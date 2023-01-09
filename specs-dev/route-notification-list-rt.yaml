@@ -14,10 +14,10 @@ spec:
   ingressconfig:
     annotations: null
     host: '*'
-    path: /notifications/get_all
+    path: /notification/list
     tls: ""
   method: ""
   methods:
   - GET
   prefix: ""
-  relativeurl: /notifications/get_all
+  relativeurl: /notification/list
