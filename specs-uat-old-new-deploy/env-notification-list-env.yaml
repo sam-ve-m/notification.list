@@ -5,18 +5,21 @@ metadata:
   name: notification-list-env
   namespace: default
 spec:
-  imagepullsecret: nexus-v3
+  builder:
+    command: build
+    container:
+      name: ""
+      resources: {}
+    image: nexus.sigame.com.br/fission-builder-3.8:0.0.1
+  imagepullsecret: "nexus-v3"
   keeparchive: false
-  poolsize: 2
-  resources:
-    requests:
-      cpu: 128m
-      memory: 128Mi
-    limits:
-      cpu: 256m
-      memory: 256Mi
+  poolsize: 3
+  resources: {}
   runtime:
-    image: nexus.sigame.com.br/fission-notification-list:0.1.0-2
+    container:
+      name: ""
+      resources: {}
+    image: nexus.sigame.com.br/fission-async:0.1.9
     podspec:
       containers:
         - name: notification-list-env
@@ -28,7 +31,7 @@ spec:
             - name: ASGI_FRAMEWORK
               value: "HYPERCORN"
             - name: MONGO_CONNECTION_URL
-              value: "mongodb://jormungandr:LIwn1In32LdowPqma@172.30.10.75:41000/?authSource=admin&replicaSet=rslionx&readPreference=secondary"
+              value: "mongodb://jormungandr:MMhsdanNNds32Malmnwqyrte@172.30.18.223:41000,172.30.19.240:41000,172.30.19.71:41000/?authSource=admin&replicaSet=rslionx&readPreference=primary"
             - name: MONGODB_DATABASE_NAME
               value: "orochi"
             - name: MONGODB_NOTIFICATION_COLLECTION
@@ -42,12 +45,11 @@ spec:
             - name: HEIMDALL_REGION_NAME
               value: "sa-east-1"
             - name: HEIMDALL_BUCKET_NAME_KEY
-              value: "auth-gateway-keys-dev"
+              value: "auth-gateway-keys-uat"
             - name: HEIMDALL_JWT_REQUIRED_FIELDS
               value: "[]"
             - name: HEIMDALL_REDIS_URL
-              value: "redis://heimdal:LLOnmUUffhaUHnewIz@172.30.11.235:6379?db=1"
+              value: "redis://heimdal:FBJAnjkqw21yjewkDSA@172.30.19.183:6379?db=1"
             - name: QUANTITY_OF_NOTIFICATIONS
               value: "100"
-  terminationGracePeriod: 3
   version: 3

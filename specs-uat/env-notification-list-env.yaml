@@ -5,21 +5,18 @@ metadata:
   name: notification-list-env
   namespace: default
 spec:
-  builder:
-    command: build
-    container:
-      name: ""
-      resources: {}
-    image: nexus.sigame.com.br/fission-builder-3.8:0.0.1
-  imagepullsecret: "nexus-v3"
+  imagepullsecret: nexus-v3
   keeparchive: false
-  poolsize: 3
-  resources: {}
+  poolsize: 2
+  resources:
+    requests:
+      cpu: 128m
+      memory: 128Mi
+    limits:
+      cpu: 256m
+      memory: 256Mi
   runtime:
-    container:
-      name: ""
-      resources: {}
-    image: nexus.sigame.com.br/fission-async:0.1.9
+    image: nexus.sigame.com.br/fission-notification-list:0.1.0-2
     podspec:
       containers:
         - name: notification-list-env
@@ -52,4 +49,5 @@ spec:
               value: "redis://heimdal:FBJAnjkqw21yjewkDSA@172.30.19.183:6379?db=1"
             - name: QUANTITY_OF_NOTIFICATIONS
               value: "100"
+  terminationGracePeriod: 3
   version: 3
